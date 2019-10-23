@@ -1,26 +1,8 @@
 # Box plot: Location and Completion.Time
 ggplot(dataset, aes(x=Location, y=Completion.Time)) + geom_boxplot() + facet_wrap(~Age.Band)
 
-# Box Plot: Location and Part.C.Score
-ggplot(dataset, aes(x=Location, y=Part.C.Score, fill=Location)) + geom_boxplot() + facet_wrap(~Age.Band)
-
-# Box Plot: Age.Band and Part.C.Score
-ggplot(dataset, aes(x=Age.Band, y=Part.C.Score)) + geom_boxplot() + facet_wrap(~Location)
-ggplot(dataset, aes(x=Age.Band, y=Part.C.Score)) + geom_boxplot() + facet_wrap(~Location) + scale_y_log10()
-
-# Histogram: Part.A.Score (Age.Band)
-ggplot(dataset, aes(x=Part.A.Score, fill=Age.Band)) + geom_histogram(bins=200)
-
-# Density: Part.A.Score, density (Age.Band)
-ggplot(dataset, aes(x=Part.A.Score, color=Age.Band)) + geom_density()
-
-
 ##### ????? #####
 
-#Graph 5:Part.C.Score ???????
-ggplot(dataset, aes(x=Part.C.Score)) + geom_histogram(bins=15) + facet_wrap(~Location)
-# Graph 4: Part.A.Score (~Age.Band) ???
-ggplot(dataset, aes(x=Part.A.Score)) + geom_histogram(bins=10) + facet_wrap(~Age.Band)
 # Graph 5
 ggplot(dataset, aes(x=Gender, y=Completion.Time)) + geom_bar(stat="Identity") + facet_wrap(~Age.Band)
 
@@ -99,14 +81,20 @@ ggplot(dataset, aes(x=Age, y=Completion.Time, color=Gender)) + xlim(NA,100) + fa
 ggplot(dataset, aes(x=Location, y=Part.B.Score, fill=Location)) + geom_bar(stat="Identity") + ylim(0,100) + facet_grid(~Age.Band_f) + labs(title="Participants Score for Test B at Different Locations", y="Total Score of Participants for Test B", x="Location") + theme(legend.position="none", panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
 
 ### NEW FINAL GRAPHS
-# AgeBand vs Part A
-ggplot(dataset, aes(x=Age.Band, y=Part.A.Score, fill=Age.Band)) + geom_boxplot() + labs(title="Participants Score for Test A organised by Age Band", y="Part.A.Score", x="Participant Score Age Band") + scale_x_discrete(limits=c("U","Y","M","O"),labels=c("Under 16", "Young Adult\n(16-39", "Middle-Aged\n(40-64)", "Older Adult\n(65)")) + theme(legend.position="none", panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
+# AgeBand vs Part A (OUTLIER)
+ggplot(dataset, aes(x=Age.Band, y=Part.A.Score, fill=Age.Band)) + geom_boxplot() + facet_wrap(~Gender_f) + labs(title="Participants Score for Test A vs Participant Age Band", y="Participant Score for Test Part A", x="Participant Score Age Band") + scale_x_discrete(limits=c("U","Y","M","O"),labels=c("Under 16", "Young Adult\n(16-39", "Middle-Aged\n(40-64)", "Older Adult\n(65)")) + theme(legend.position="none", panel.border = element_rect(color="grey", fill=NA, size=1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=1, face="bold"))
 
-# Completion Time vs Age.Band
-ggplot(dataset, aes(x=Age.Band, y=Completion.Time, fill=Age.Band)) +geom_bar(stat="Identity") + facet_wrap(~Gender) + labs(title="Completion Time of All Three Tasks Seperated by Gender", y="Completion Time (s)", x="Age Band of Participants") + scale_x_discrete(limits=c("U","Y","M","O"),labels=c("Under 16", "Young Adult\n(16-39", "Middle-Aged\n(40-64)", "Older Adult\n(65)")) + theme(legend.position="none", panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
+# Completion Time vs Age.Band 
+ggplot(dataset, aes(x=Age.Band, y=Completion.Time, fill=Age.Band)) +geom_boxplot() + facet_wrap(~Gender_f) + labs(title="Completion Time of All Three Tasks vs Age Band of Participants", y="Completion Time (s)", x="Age Band of Participants") + scale_x_discrete(limits=c("U","Y","M","O"),labels=c("Under 16", "Young Adult\n(16-39)", "Middle-Aged\n(40-64)", "Older Adult\n(65)")) + theme(legend.position="none", panel.border = element_rect(color="grey", fill=NA, size=1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
 
-# Test B Score vs Age
-ggplot(dataset, aes(x=Age, y=Part.B.Score, color=Age.Band)) + geom_point() + labs(title="Participants Score for Test Part B by Age", y="Score for Part B", x="Age of Participant") + scale_color_discrete(name="Age Band\nOf Partipicant", limits=c("U", "Y", "M", "O"),labels=c("Under 16", "Young Adult(16-39)", "Middle Aged(40-64)", "Older Adult(65+)"))+ theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"), legend.box.background = element_rect(colour="grey"))
+# Test B Score vs Age (OUTLIER)
+ggplot(dataset, aes(x=Age, y=Part.B.Score)) + geom_point(color="blue") + labs(title="Participants Score for Test Part B vs Participant Age", y="Participant Score for Part B (%)", x="Age of Participant (Years)") + theme(panel.border = element_blank(), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"), legend.box.background = element_rect(colour="grey"))
 
 # Test C vs Age Band
-ggplot(dataset, aes(x=Age.Band_f, y=Part.C.Score, color=Location)) + geom_bar(stat="Identity") + facet_wrap(~Location_f) + labs(title="Participants Score for Test C Vs Participants Age", y="Participants Score for Part C", x="Participant Age") + theme(legend.position="none", panel.border = element_rect(color="grey", fill=NA, size=1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
+ggplot(dataset, aes(x=Age.Band_f1, y=Part.C.Score, color=Location)) + geom_bar(stat="Identity") + facet_wrap(~Location_f) + labs(title="Participants Score for Test C Vs Participant Age Band", y="Total of All Participant Scores for Test Part C", x="Participant Age Band") + theme(legend.position="none", panel.border = element_rect(color="grey", fill=NA, size=1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
+
+# ???
+
+
+# FULLY OPTIMISED GRAPH
+ggplot(dataset, aes(x=Age.Band, y=Part.A.Score, fill=Age.Band)) + geom_bar(stat="Identity") + labs(title="Participants Score for Test A vs Participant Age Band", y="Total of All Participant Scores for Test Part A", x="Participant Score Age Band") + scale_x_discrete(limits=c("U","Y","M","O"),labels=c("Under 16", "Young Adult\n(16-39", "Middle-Aged\n(40-64)", "Older Adult\n(65)")) + theme(legend.position="none", panel.border = element_rect(color="grey", fill=NA, size=1), panel.grid.major = element_blank(), panel.grid.minor = element_blank(), panel.background = element_blank(), axis.line = element_line(colour = "grey"), plot.title = element_text(hjust=0.5, face="bold"))
